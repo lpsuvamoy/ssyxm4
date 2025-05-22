@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+ 
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+ 
+    --radius: 0.5rem;
+
+    /* Glassmorphism Variables */
+    --glass-background: rgba(255, 255, 255, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    --glass-blur: 8px;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+ 
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+ 
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+ 
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+ 
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+ 
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+ 
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+
+    /* Glassmorphism Variables for Dark Mode */
+    --glass-background: rgba(17, 25, 40, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.125);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --glass-blur: 8px;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+  .dark * {
+    @apply border-gray-700;
+  }
+  body {
+    @apply bg-white text-gray-900;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  .dark body {
+    @apply bg-gray-900 text-gray-100;
+  }
+}
+
+/* Glassmorphism Components */
+@layer components {
+  .glass {
+    background: var(--glass-background);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: var(--radius);
+  }
+
+  .glass-hover:hover {
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(calc(var(--glass-blur) + 2px));
+    -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 2px));
+  }
+
+  .dark .glass-hover:hover {
+    background: rgba(17, 25, 40, 0.85);
+  }
+
+  /* Layout Styles */
+  .app-container {
+    @apply h-screen w-screen flex flex-col overflow-hidden;
+    background-image: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+  }
+
+  .dark .app-container {
+    background-image: linear-gradient(135deg, #1e293b 0%, #334155 50%, #0f172a 100%);
+  }
+
+  .main-content {
+    @apply flex flex-1 overflow-hidden;
+  }
+
+  .left-pane {
+    @apply w-64 flex-shrink-0 flex flex-col overflow-hidden;
+  }
+
+  .right-pane {
+    @apply w-64 flex-shrink-0 flex flex-col overflow-hidden;
+  }
+
+  .chat-area {
+    @apply flex-1 flex flex-col overflow-hidden;
+  }
+
+  .top-bar {
+    @apply h-14 flex items-center px-4;
+  }
+
+  .news-ticker {
+    @apply h-8 overflow-hidden;
+  }
+
+  .chat-messages {
+    @apply flex-1 overflow-y-auto p-4;
+  }
+
+  .user-input {
+    @apply p-4;
+  }
+
+  .chat-controls {
+    @apply p-2;
+  }
+
+  /* Animation for News Ticker */
+  .ticker-content {
+    @apply whitespace-nowrap inline-block;
+    animation: ticker 30s linear infinite;
+  }
+}
+
+/* Animation for News Ticker */
+@keyframes ticker {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .main-content {
+    @apply flex-col;
+  }
+  
+  .left-pane, .right-pane {
+    @apply w-full h-auto;
+  }
+}
